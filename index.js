@@ -1,4 +1,5 @@
 import express from "express";
+import { faker } from "@faker-js/faker";
 
 const app = express();
 
@@ -21,23 +22,19 @@ app.get("/json", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
-  res.json([
-    {
-      name: "telephone",
-      price: 300,
-      tcaregory: "tech",
-    },
-    {
-      name: "telephone",
-      price: 300,
-      tcaregory: "tech",
-    },
-    {
-      name: "telephone",
-      price: 300,
-      tcaregory: "tech",
-    },
-  ]);
+  const products = [];
+
+  const { limit = 100 } = req.query;
+
+  for (let index = 0; index < limit; index++) {
+    products.push({
+      name: faker.commerce.productName(),
+      price: parseInt(faker.commerce.price()),
+      image: faker.image.imageUrl(200, 200, "cat", true),
+    });
+  }
+
+  res.json(products);
 });
 
 //para recibir parametros por link se utiliza los dos puntos /:id
@@ -59,6 +56,20 @@ app.get("/categories/:categoryId/products/:productId", (req, res) => {
     categoryId,
     productId,
   });
+});
+
+//asi podemos trabajar con query params
+app.get("/users", (req, res) => {
+  const { limit, offset } = req.query;
+
+  if (limit && offset) {
+    res.json({
+      limit,
+      offset,
+    });
+  } else {
+    res.send("no params");
+  }
 });
 
 app.listen(PORT, () => {
