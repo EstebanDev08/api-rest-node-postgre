@@ -30,4 +30,13 @@ productsRouter.get("/:id", (req, res) => {
   });
 });
 
+productsRouter.post("/", (req, res) => {
+  const body = req.body;
+
+  res.json({
+    message: "creaded new product",
+    data: body,
+  });
+});
+
 export { productsRouter };
