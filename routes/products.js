@@ -1,20 +1,12 @@
 import express from "express";
-import { faker } from "@faker-js/faker";
+import { ProductService } from "../services/product.service.js";
 
 const productsRouter = express.Router();
 
+const service = new ProductService();
+
 productsRouter.get("/", (req, res) => {
-  const products = [];
-
-  const { limit = 100 } = req.query;
-
-  for (let index = 0; index < limit; index++) {
-    products.push({
-      name: faker.commerce.productName(),
-      price: parseInt(faker.commerce.price()),
-      image: faker.image.imageUrl(200, 200, "cat", true),
-    });
-  }
+  const products = service.find();
 
   res.json(products);
 });
@@ -22,18 +14,23 @@ productsRouter.get("/", (req, res) => {
 //para recibir parametros por link se utiliza los dos puntos /:id
 productsRouter.get("/:id", (req, res) => {
   const { id } = req.params;
-  res.json({
-    id: id,
-    name: "telephone",
-    price: 300,
-    category: "tech",
-  });
+
+  const product = service.findOne(id);
+
+  if (product) {
+    res.json(product);
+  } else {
+    res.status(404).json({
+      message: "no found product",
+    });
+  }
 });
 
 productsRouter.post("/", (req, res) => {
   const body = req.body;
 
-  res.json({
+  //status nos permite devolver un code de status
+  res.status(201).json({
     message: "creaded new product",
     data: body,
   });
