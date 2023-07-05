@@ -6,7 +6,7 @@ const app = express();
 const PORT = 3000;
 
 app.get("/", (req, res) => {
-  res.send("");
+  res.send("no hay nada xd");
 });
 
 routerApi(app);

@@ -1,11 +1,16 @@
 import { categoriesRoutes } from "./categories.js";
 import { productsRouter } from "./products.js";
 import { usersRoutes } from "./users.js";
+import express from "express";
+
+const versionApi = "/api/v1";
 
 const routerApi = (app) => {
-  app.use("/products", productsRouter);
-  app.use("/users", usersRoutes);
-  app.use("/categories", categoriesRoutes);
+  const router = express.Router();
+  app.use(versionApi, router);
+  router.use(`/products`, productsRouter);
+  router.use(`/users`, usersRoutes);
+  router.use(`/categories`, categoriesRoutes);
 };
 
 export { routerApi };
