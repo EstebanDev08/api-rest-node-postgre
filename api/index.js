@@ -4,14 +4,10 @@ import { routerApi } from "./routes/index.js";
 
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //permite resivir json en las peticiones
 app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("no hay nada xd");
-});
 
 routerApi(app);
 
