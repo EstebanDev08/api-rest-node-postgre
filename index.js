@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { routerApi } from "./routes/index.js";
 
 const app = express();
@@ -13,6 +14,8 @@ app.get("/", (req, res) => {
 });
 
 routerApi(app);
+
+app.use(cors());
 
 app.listen(PORT, () => {
   console.log(`listening at http://localhost:${PORT}`);
