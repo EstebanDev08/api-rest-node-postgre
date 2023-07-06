@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: estebandev
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PG_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_PASSWORD}
+      MAX_LOGIN_ATTEMPTS: 0
+    ports:
+      - 5050:80
