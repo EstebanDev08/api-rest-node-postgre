@@ -1,10 +1,12 @@
 import { faker } from "@faker-js/faker";
 import { CrudService } from "./crud.service.js";
+import { PRODUCTS } from "../util/routes.types.js";
 
 class ProductsService extends CrudService {
   constructor() {
     super();
     this.generate();
+    this.type = PRODUCTS;
   }
 
   generate() {

@@ -1,8 +1,10 @@
 import { faker } from "@faker-js/faker";
+import { getPoolConection } from "../libs/postgres.pool.js";
 
 class CrudService {
   constructor() {
     this.data = [];
+    this.getPoolConection = getPoolConection;
   }
 
   create(item) {
@@ -19,8 +21,11 @@ class CrudService {
     }
   }
 
-  find() {
-    return this.data;
+  async find() {
+    const query = `SELECT * FROM ${this.type}`;
+    const res = await this.getPoolConection.query(query);
+    console.log(res.rows);
+    return res.rows;
   }
 
   findOne(id) {

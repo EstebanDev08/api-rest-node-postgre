@@ -1,0 +1,5 @@
+const PRODUCTS = "PRODUCTS";
+const USERS = "USERS";
+const CATEGORIES = "CATEGORIES";
+
+export { PRODUCTS, USERS, CATEGORIES };

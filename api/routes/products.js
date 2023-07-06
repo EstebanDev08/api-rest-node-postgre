@@ -12,9 +12,8 @@ const productsRouter = express.Router();
 //traemos la clase de nuestro producto
 const service = new ProductsService();
 
-productsRouter.get("/", (req, res) => {
-  const products = service.find();
-
+productsRouter.get("/", async (req, res) => {
+  const products = await service.find();
   res.json(products);
 });
 
