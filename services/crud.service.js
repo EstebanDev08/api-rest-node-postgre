@@ -12,14 +12,6 @@ class CrudService {
         ...item,
       };
 
-      const props = Object.keys(this.itemTemplate());
-
-      for (let prop of props) {
-        if (!newItem.hasOwnProperty(prop)) {
-          throw new Error(`La propiedad '${prop}' no está presente.`);
-        }
-      }
-
       this.data.push(newItem);
       return [true, newItem];
     } catch (error) {
@@ -47,6 +39,23 @@ class CrudService {
       }
     } catch (error) {
       return error;
+    }
+  }
+
+  update(id, props) {
+    try {
+      const existId = this.data.findIndex((item) => item.id === id);
+      if (existId === -1) {
+        throw new Error(`No se encontró el ID '${id}'.`);
+      } else {
+        const product = this.data.find((item) => item.id === id);
+        const updateProduct = { ...product, ...props };
+        this.data[existId] = updateProduct;
+
+        return [true, updateProduct];
+      }
+    } catch (error) {
+      return [error];
     }
   }
 }

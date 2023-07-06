@@ -16,14 +16,6 @@ class CategoriesService extends CrudService {
       });
     }
   }
-
-  itemTemplate() {
-    return {
-      id: "",
-      name: "",
-      image: "",
-    };
-  }
 }
 
 export { CategoriesService };

@@ -20,16 +20,6 @@ class UsersService extends CrudService {
       });
     }
   }
-
-  itemTemplate() {
-    return {
-      id: "",
-      name: "",
-      user: "",
-      avatar: "",
-      tell: "",
-    };
-  }
 }
 
 export { UsersService };

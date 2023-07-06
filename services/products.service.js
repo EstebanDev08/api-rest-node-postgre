@@ -17,15 +17,6 @@ class ProductsService extends CrudService {
       });
     }
   }
-
-  itemTemplate() {
-    return {
-      id: "",
-      name: "",
-      price: "",
-      image: "",
-    };
-  }
 }
 
 export { ProductsService };
