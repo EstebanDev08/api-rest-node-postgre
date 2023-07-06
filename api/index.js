@@ -4,15 +4,17 @@ import { routerApi } from "./routes/index.js";
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
-
+const port = process.env.PORT || 3000;
+app.use(cors());
 //permite resivir json en las peticiones
 app.use(express.json());
 
+app.get("/api", (req, res) => {
+  res.send("desplegado");
+});
+
 routerApi(app);
 
-app.use(cors());
-
-app.listen(PORT, () => {
+app.listen(port, () => {
   console.log(`listening at http://localhost:${PORT}`);
 });
