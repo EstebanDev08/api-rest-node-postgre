@@ -1,9 +1,10 @@
 import express from "express";
-import { ProductService } from "../services/product.service.js";
+import { ProductsService } from "../services/products.service.js";
 
 const productsRouter = express.Router();
 
-const service = new ProductService();
+//traemos la clase de nuestro producto
+const service = new ProductsService();
 
 productsRouter.get("/", (req, res) => {
   const products = service.find();
@@ -21,7 +22,7 @@ productsRouter.get("/:id", (req, res) => {
     res.json(product);
   } else {
     res.status(404).json({
-      message: "no found product",
+      message: "not found product",
     });
   }
 });
@@ -29,11 +30,20 @@ productsRouter.get("/:id", (req, res) => {
 productsRouter.post("/", (req, res) => {
   const body = req.body;
 
+  const [isSave, saveProduct] = service.create(body);
+
   //status nos permite devolver un code de status
-  res.status(201).json({
-    message: "creaded new product",
-    data: body,
-  });
+
+  if (isSave === true) {
+    res.status(201).json({
+      message: "creaded new product",
+      data: saveProduct,
+    });
+  } else {
+    res.status(400).json({
+      message: `${isSave}`,
+    });
+  }
 });
 
 //actualizar data
@@ -52,10 +62,15 @@ productsRouter.patch("/:id", (req, res) => {
 productsRouter.delete("/:id", (req, res) => {
   const { id } = req.params;
 
-  res.json({
-    message: "product deleted",
-    id,
-  });
+  const isDeleted = service.delete(id);
+
+  if (isDeleted === true) {
+    res.status(204).json({});
+  } else {
+    res.status(400).json({
+      message: isDeleted.toString(),
+    });
+  }
 });
 
 export { productsRouter };
