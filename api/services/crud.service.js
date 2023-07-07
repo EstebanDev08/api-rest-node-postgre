@@ -1,10 +1,10 @@
 import { faker } from "@faker-js/faker";
-import { getPoolConection } from "../libs/postgres.pool.js";
+import { sequelizeConection } from "../libs/sequelize.js";
 
 class CrudService {
   constructor() {
     this.data = [];
-    this.getPoolConection = getPoolConection;
+    this.sequelizeConection = sequelizeConection;
   }
 
   create(item) {
@@ -23,9 +23,9 @@ class CrudService {
 
   async find() {
     const query = `SELECT * FROM ${this.type}`;
-    const res = await this.getPoolConection.query(query);
-    console.log(res.rows);
-    return res.rows;
+    const [data] = await this.sequelizeConection.query(query);
+    console.log(data);
+    return data;
   }
 
   findOne(id) {
