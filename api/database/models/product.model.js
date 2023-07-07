@@ -1,4 +1,5 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
+import { PRODUCTS } from "../routes.types.js";
 
 const PRODUCT_TABLE = "products";
 const ProductSchema = {
@@ -25,7 +26,7 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
-  Image: {
+  image: {
     allowNull: false,
     type: DataTypes.STRING,
   },
@@ -56,7 +57,7 @@ class Product extends Model {
     return {
       sequelize,
       tableName: PRODUCT_TABLE,
-      modelName: "products",
+      modelName: PRODUCTS,
       timestamp: false,
     };
   }

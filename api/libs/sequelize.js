@@ -13,6 +13,12 @@ const sequelizeConection = new Sequelize(URI, {
   logging: true,
 });
 
+try {
+  await sequelizeConection.authenticate();
+} catch (error) {
+  console.error("Unable to connect to the database:", error);
+}
+
 setupModels(sequelizeConection);
 
 sequelizeConection.sync({ alter: true });

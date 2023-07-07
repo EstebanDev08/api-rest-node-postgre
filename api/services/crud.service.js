@@ -1,35 +1,45 @@
-import { faker } from "@faker-js/faker";
 import { sequelizeConection } from "../libs/sequelize.js";
+import { Boom } from "@hapi/boom";
 
 class CrudService {
   constructor() {
     this.data = [];
     this.sequelizeConection = sequelizeConection;
-  }
-
-  create(item) {
-    try {
-      const newItem = {
-        id: faker.datatype.uuid(),
-        ...item,
-      };
-
-      this.data.push(newItem);
-      return [true, newItem];
-    } catch (error) {
-      return [error];
-    }
+    this.models = sequelizeConection.models;
+    this.boom = Boom;
   }
 
   async find() {
-    const query = `SELECT * FROM ${this.type}`;
-    const [data] = await this.sequelizeConection.query(query);
-    console.log(data);
-    return data;
+    try {
+      const data = await this.models[this.type].findAll();
+      return data;
+    } catch (error) {
+      throw new error(error);
+    }
   }
 
-  findOne(id) {
-    return this.data.find((item) => item.id === id);
+  async findOne(id) {
+    try {
+      const data = await this.models[this.type].findByPk(id);
+
+      if (!data) {
+        this.boom.notFound(`${this.type} not found`);
+      }
+
+      console.log(typeof id);
+      return { data: data };
+    } catch (error) {
+      return { error: error };
+    }
+  }
+
+  async create(item) {
+    try {
+      const data = await this.models[this.type].create(item);
+      return { data: data };
+    } catch (error) {
+      return { error: error?.errors[0] };
+    }
   }
 
   delete(id) {
