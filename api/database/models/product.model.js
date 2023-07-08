@@ -16,6 +16,7 @@ const ProductSchema = {
   price: {
     allowNull: false,
     type: DataTypes.FLOAT,
+    unique: true,
   },
 
   description: {
@@ -34,18 +35,6 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.INTEGER,
     defaultValue: 0,
-  },
-  creationAt: {
-    allowNull: false,
-    field: "create_at",
-    defaultValue: Sequelize.NOW,
-    type: DataTypes.DATE,
-  },
-  updateAt: {
-    allowNull: false,
-    field: "update_at",
-    defaultValue: Sequelize.NOW,
-    type: DataTypes.DATE,
   },
 };
 

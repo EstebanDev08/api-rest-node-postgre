@@ -11,7 +11,7 @@ class ProductController {
   static getProduct = async (req, res) => {
     const { id } = req.params;
 
-    const { data, error } = await service.findOne(parseInt(id));
+    const { data, error } = await service.findOne(id);
 
     if (data) {
       res.json(data);
@@ -27,7 +27,7 @@ class ProductController {
 
     const { data, error } = await service.create(body);
     //status nos permite devolver un code de status
-    console.log(!!data, error);
+
     if (!!data) {
       res.status(201).json({
         message: "creaded new product",
@@ -40,34 +40,33 @@ class ProductController {
     }
   };
 
-  static editProduct = (req, res) => {
-    const body = req.body;
+  static deleteProduct = async (req, res) => {
     const { id } = req.params;
 
-    const [isUpdate, updateProduct] = service.update(id, body);
-
-    if (isUpdate === true) {
-      res.json({
-        message: "update product",
-        data: updateProduct,
-      });
+    const { isDelete, error } = await service.delete(id);
+    if (isDelete === true) {
+      res.status(204).json({});
     } else {
       res.status(400).json({
-        message: `${isUpdate}`,
+        message: `${error}`,
       });
     }
   };
 
-  static deleteProduct = (req, res) => {
+  static editProduct = async (req, res) => {
+    const body = req.body;
     const { id } = req.params;
 
-    const isDeleted = service.delete(id);
+    const { data, error } = await service.update(id, body);
 
-    if (isDeleted === true) {
-      res.status(204).json({});
+    if (data) {
+      res.json({
+        message: "update product",
+        data: data,
+      });
     } else {
       res.status(400).json({
-        message: `${isDeleted}`,
+        message: `${error}`,
       });
     }
   };

@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 const id = Joi.number().integer().min(1);
-const name = Joi.string().min(3).max(20);
+const title = Joi.string().min(3).max(20);
 const price = Joi.number().integer().min(1);
 const description = Joi.string();
 const category = Joi.string();
@@ -9,7 +9,7 @@ const image = Joi.string();
 const count = Joi.number().integer();
 
 const createProductSchema = Joi.object({
-  title: name.required(),
+  title: title.required(),
   price: price.required(),
   description: description.required(),
   category: category.required(),
@@ -18,8 +18,12 @@ const createProductSchema = Joi.object({
 });
 
 const updateProductSchema = Joi.object({
-  name: name,
+  title: title,
   price: price,
+  description: description,
+  category: category,
+  image: image,
+  count: count,
 });
 
 const getProductSchema = Joi.object({
