@@ -16,7 +16,6 @@ const ProductSchema = {
   price: {
     allowNull: false,
     type: DataTypes.FLOAT,
-    unique: true,
   },
 
   description: {

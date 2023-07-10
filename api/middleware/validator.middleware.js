@@ -1,5 +1,5 @@
 import { badRequest } from "@hapi/boom";
-import e from "cors";
+
 // tiene que ser dinámico
 const validatorHandler = (schema, property) => {
   //clousures
