@@ -21,6 +21,4 @@ try {
 
 setupModels(sequelizeConection);
 
-sequelizeConection.sync({ alter: true });
-
 export { sequelizeConection };

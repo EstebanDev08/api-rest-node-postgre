@@ -30,6 +30,11 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  rating: {
+    allowNull: false,
+    type: DataTypes.FLOAT,
+    defaultValue: 0,
+  },
   count: {
     allowNull: false,
     type: DataTypes.INTEGER,
