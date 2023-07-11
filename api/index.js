@@ -1,10 +1,14 @@
 import express from "express";
 import cors from "cors";
 import { routerApi } from "./routes/index.js";
-import { handleErrorSql } from "./middleware/handleErrorValidator.js";
+import {
+  boomErrorHandler,
+  errorHandler,
+  logErrors,
+  ormErrorHandler,
+} from "./middleware/handleErrorValidator.js";
 
 const app = express();
-
 const port = process.env.PORT || 3000;
 
 app.use(cors());
@@ -16,7 +20,12 @@ app.get("/api", (req, res) => {
 });
 
 routerApi(app);
-app.use(handleErrorSql);
+
+//app.use(logErrors);
+//app.use(ormErrorHandler);
+//app.use(boomErrorHandler);
+//app.use(errorHandler);
+
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
 });

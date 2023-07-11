@@ -1,7 +1,7 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import { PRODUCTS } from "../routes.types.js";
 
-const PRODUCT_TABLE = "products";
+const PRODUCT_TABLE = PRODUCTS;
 const ProductSchema = {
   id: {
     allowNull: false,

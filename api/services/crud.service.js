@@ -1,4 +1,5 @@
 import { sequelizeConection } from "../libs/sequelize.js";
+import { ValidationError } from "sequelize";
 
 class CrudService {
   constructor() {
@@ -9,6 +10,9 @@ class CrudService {
   async find() {
     try {
       const data = await this.models[this.type].findAll();
+      if (data.length === 0) {
+        return { message: "no have data" };
+      }
       return data;
     } catch (error) {
       throw new Error(error);
@@ -34,10 +38,15 @@ class CrudService {
 
       return { data: data };
     } catch (error) {
-      console.log(
-        error,
-        "-----------------------------------------------------------------------------------------"
-      );
+      if (error instanceof ValidationError) {
+        return {
+          error: {
+            statusCode: 409,
+            message: error.name,
+            errors: error?.errors[0]?.message || error?.errors,
+          },
+        };
+      }
 
       return { error: error };
     }
