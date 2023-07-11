@@ -40,6 +40,15 @@ const ProductSchema = {
     type: DataTypes.INTEGER,
     defaultValue: 0,
   },
+  createdAt: {
+    allowNull: true,
+    type: DataTypes.DATE,
+  },
+
+  updatedAt: {
+    allowNull: true,
+    type: DataTypes.DATE,
+  },
 };
 
 class Product extends Model {

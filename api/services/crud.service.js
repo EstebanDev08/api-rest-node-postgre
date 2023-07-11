@@ -2,7 +2,6 @@ import { sequelizeConection } from "../libs/sequelize.js";
 
 class CrudService {
   constructor() {
-    this.data = [];
     this.sequelizeConection = sequelizeConection;
     this.models = sequelizeConection.models;
   }
@@ -12,7 +11,7 @@ class CrudService {
       const data = await this.models[this.type].findAll();
       return data;
     } catch (error) {
-      throw new error(error);
+      throw new Error(error);
     }
   }
 
@@ -35,7 +34,12 @@ class CrudService {
 
       return { data: data };
     } catch (error) {
-      return { error: error?.errors[0] };
+      console.log(
+        error,
+        "-----------------------------------------------------------------------------------------"
+      );
+
+      return { error: error };
     }
   }
 

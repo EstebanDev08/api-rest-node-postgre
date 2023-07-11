@@ -1,6 +1,6 @@
 import { categoriesRoutes } from "./categories.js";
 import { productsRouter } from "./products.js";
-import { usersRoutes } from "./users.js";
+import { usersRouter } from "./users.js";
 import express from "express";
 
 const versionApi = "/api/v1";
@@ -10,7 +10,7 @@ const routerApi = (app) => {
   app.use(versionApi, router);
 
   router.use(`/products`, productsRouter);
-  router.use(`/users`, usersRoutes);
+  router.use(`/users`, usersRouter);
   router.use(`/categories`, categoriesRoutes);
 };
 

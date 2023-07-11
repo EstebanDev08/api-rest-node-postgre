@@ -1,49 +1,44 @@
 import express from "express";
+import { validatorHandler } from "../middleware/validator.middleware.js";
+import {
+  createUserSchema,
+  getUserSchema,
+  updateUserSchema,
+} from "../schemas/user.schema.js";
+import { UserController } from "../controller/user.controller.js";
 
-const usersRoutes = express.Router();
+const usersRouter = express.Router();
 
-//asi podemos trabajar con query params
+//traemos la clase de nuestro Usero
 
-usersRoutes.get("/", (req, res) => {
-  const { limit, offset } = req.query;
+usersRouter.get("/", UserController.getAllUsers);
 
-  if (limit && offset) {
-    res.json({
-      limit,
-      offset,
-    });
-  } else {
-    res.send("no params");
-  }
-});
+//para recibir parametros por link se utiliza los dos puntos /:id
+usersRouter.get(
+  "/:id",
+  validatorHandler(getUserSchema, "params"),
+  UserController.getUser
+);
 
-usersRoutes.post("/", (req, res) => {
-  const body = req.body;
+usersRouter.post(
+  "/",
+  validatorHandler(createUserSchema, "body"),
+  UserController.createUser
+);
 
-  res.status(201).json({
-    message: "producto creado",
-    data: body,
-  });
-});
+//actualizar data
+usersRouter.patch(
+  "/:id",
+  validatorHandler(getUserSchema, "params"),
+  validatorHandler(updateUserSchema, "body"),
+  UserController.editUser
+);
 
-usersRoutes.patch("/:id", (req, res) => {
-  const body = req.body;
+//eliminar data
+usersRouter.delete(
+  "/:id",
+  validatorHandler(getUserSchema, "params"),
+  UserController.deleteUser
+);
 
-  const { id } = req.params;
-
-  res.json({
-    message: "product actualizado",
-    data: body,
-    id,
-  });
-});
-
-usersRoutes.delete("/:id", (req, res) => {
-  const { id } = req.params;
-
-  res.json({
-    message: `se ha eliminado el producto ${id}`,
-  });
-});
-
-export { usersRoutes };
+export { usersRouter };
