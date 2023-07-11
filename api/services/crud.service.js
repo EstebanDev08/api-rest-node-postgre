@@ -9,7 +9,10 @@ class CrudService {
 
   async find() {
     try {
-      const data = await this.models[this.type].findAll();
+      console.log(this.association);
+      const data = await this.models[this.type].findAll({
+        include: this.association,
+      });
       if (data.length === 0) {
         return { message: "no have data" };
       }
@@ -34,7 +37,9 @@ class CrudService {
 
   async create(item) {
     try {
-      const data = await this.models[this.type].create(item);
+      const data = await this.models[this.type].create(item, {
+        include: this.association,
+      });
 
       return { data: data };
     } catch (error) {

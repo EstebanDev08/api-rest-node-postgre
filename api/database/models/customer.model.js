@@ -1,6 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { CUSTOMERS } from "../routes.types.js";
 import { USER_TABLE } from "./user.model.js";
+import { CUSTOMER_USER_ASSOCIACTION } from "../association/custumer.association.js";
 
 const CUSTOMER_TABLE = CUSTOMERS;
 const CustomerSchema = {
@@ -44,7 +45,7 @@ const CustomerSchema = {
 
 class Customer extends Model {
   static associate(models) {
-    this.belongsTo(models.users, { as: "user" });
+    this.belongsTo(models.users, { as: CUSTOMER_USER_ASSOCIACTION });
   }
   static config(sequelize) {
     return {

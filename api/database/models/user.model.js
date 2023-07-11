@@ -1,7 +1,9 @@
 import { Model, DataTypes } from "sequelize";
 import { USERS } from "../routes.types.js";
+import { USER_CUSTOMER_ASSOCIATION } from "../association/user.association.js";
 
 const USER_TABLE = "users";
+
 const UserSchema = {
   id: {
     allowNull: false,
@@ -10,6 +12,7 @@ const UserSchema = {
     type: DataTypes.INTEGER,
   },
   email: {
+    unique: true,
     allowNull: false,
     type: DataTypes.STRING,
   },
@@ -30,8 +33,11 @@ const UserSchema = {
 };
 
 class User extends Model {
-  static associate() {
-    //
+  static associate(models) {
+    this.hasOne(models.customers, {
+      as: USER_CUSTOMER_ASSOCIATION,
+      foreignKey: "userId",
+    });
   }
   static config(sequelize) {
     return {

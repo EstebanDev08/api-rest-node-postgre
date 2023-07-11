@@ -1,0 +1,3 @@
+const USER_CUSTOMER_ASSOCIATION = "customer";
+
+export { USER_CUSTOMER_ASSOCIATION };
