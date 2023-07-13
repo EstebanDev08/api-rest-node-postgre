@@ -1,4 +1,4 @@
-import { categoriesRoutes } from "./categories.js";
+import { categoryRouter } from "./category.js";
 import { customerRouter } from "./customer.js";
 import { productsRouter } from "./products.js";
 import { usersRouter } from "./users.js";
@@ -12,7 +12,7 @@ const routerApi = (app) => {
 
   router.use(`/products`, productsRouter);
   router.use(`/users`, usersRouter);
-  router.use(`/categories`, categoriesRoutes);
+  router.use(`/category`, categoryRouter);
   router.use(`/customers`, customerRouter);
 };
 

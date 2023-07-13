@@ -7,6 +7,7 @@ class ProductsService extends CrudService {
     super();
 
     this.type = PRODUCTS;
+    this.association = [];
   }
 }
 

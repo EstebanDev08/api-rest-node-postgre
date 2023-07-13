@@ -9,12 +9,11 @@ class CrudService {
 
   async find() {
     try {
-      console.log(this.association);
       const data = await this.models[this.type].findAll({
         include: this.association,
       });
       if (data.length === 0) {
-        return { message: "no have data" };
+        return { message: "no data" };
       }
       return data;
     } catch (error) {
@@ -24,7 +23,9 @@ class CrudService {
 
   async findOne(id) {
     try {
-      const data = await this.models[this.type].findByPk(parseInt(id));
+      const data = await this.models[this.type].findByPk(parseInt(id), {
+        include: this.association,
+      });
 
       if (!data) {
         throw new Error(`${this.type} not found`);

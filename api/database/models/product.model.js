@@ -1,5 +1,7 @@
-import { Model, DataTypes, Sequelize } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import { PRODUCTS } from "../routes.types.js";
+import { CATEGORY_TABLE } from "./category.model.js";
+import { CATEGORY_PRODUCT_ASSOCIACTION } from "../association/category.association.js";
 
 const PRODUCT_TABLE = PRODUCTS;
 const ProductSchema = {
@@ -20,11 +22,16 @@ const ProductSchema = {
 
   description: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
   },
-  category: {
+  categoryId: {
+    field: "category_id",
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
+    references: {
+      model: CATEGORY_TABLE,
+      key: "id",
+    },
   },
   image: {
     allowNull: false,
@@ -35,7 +42,8 @@ const ProductSchema = {
     type: DataTypes.FLOAT,
     defaultValue: 0,
   },
-  count: {
+  quantityRemaining: {
+    field: "quantity_remaining",
     allowNull: false,
     type: DataTypes.INTEGER,
     defaultValue: 0,
@@ -52,8 +60,8 @@ const ProductSchema = {
 };
 
 class Product extends Model {
-  static associate() {
-    //
+  static associate(models) {
+    this.belongsTo(models.category, { as: CATEGORY_PRODUCT_ASSOCIACTION });
   }
   static config(sequelize) {
     return {

@@ -2,7 +2,7 @@
 
 const PRODUCTS = "products";
 const USERS = "users";
-const CATEGORIES = "categories";
+const CATEGORY = "category";
 const CUSTOMERS = "customers";
 
-export { PRODUCTS, USERS, CATEGORIES, CUSTOMERS };
+export { PRODUCTS, USERS, CATEGORY, CUSTOMERS };
