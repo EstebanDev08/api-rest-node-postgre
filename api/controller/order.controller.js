@@ -31,7 +31,6 @@ class OrderController {
     if (!!data) {
       res.status(201).json({
         message: "creaded new Order",
-        data: data,
       });
     } else {
       res.status(404).json({

@@ -13,7 +13,7 @@ const orderProductSchema = {
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
-  oderId: {
+  orderId: {
     field: "order_id",
     allowNull: false,
     type: DataTypes.INTEGER,

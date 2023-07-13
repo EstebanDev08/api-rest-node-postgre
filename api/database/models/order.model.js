@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import { ORDERS } from "../routes.types.js";
+import { ORDERS, ORDER_PRODUCT } from "../routes.types.js";
 import { CUSTOMER_TABLE } from "./customer.model.js";
 import { ORDER_CUSTOMER_ASSOCIACTION } from "../association/order.association.js";
 
@@ -44,6 +44,13 @@ class Order extends Model {
   static associate(models) {
     this.belongsTo(models.customers, {
       as: ORDER_CUSTOMER_ASSOCIACTION,
+    });
+
+    this.belongsToMany(models.products, {
+      as: "products",
+      through: ORDER_PRODUCT,
+      foreignKey: "orderId",
+      otherKey: "productId",
     });
   }
   static config(sequelize) {
