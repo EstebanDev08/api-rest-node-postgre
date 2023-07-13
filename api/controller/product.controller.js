@@ -35,7 +35,8 @@ class ProductController {
       });
     } else {
       res.status(404).json({
-        message: `${error.path}: ${error.type} `,
+        message: "dont create Category",
+        error: error,
       });
     }
   };

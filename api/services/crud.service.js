@@ -45,6 +45,7 @@ class CrudService {
       return { data: data };
     } catch (error) {
       if (error instanceof ValidationError) {
+        console.log(error);
         return {
           error: {
             statusCode: 409,

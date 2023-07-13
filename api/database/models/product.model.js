@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { PRODUCTS } from "../routes.types.js";
 import { CATEGORY_TABLE } from "./category.model.js";
-import { CATEGORY_PRODUCT_ASSOCIACTION } from "../association/category.association.js";
+import { PRODUCT_CATEGORY_ASSOCIACTION } from "../association/product.association.js";
 
 const PRODUCT_TABLE = PRODUCTS;
 const ProductSchema = {
@@ -61,7 +61,7 @@ const ProductSchema = {
 
 class Product extends Model {
   static associate(models) {
-    this.belongsTo(models.category, { as: CATEGORY_PRODUCT_ASSOCIACTION });
+    this.belongsTo(models.category, { as: PRODUCT_CATEGORY_ASSOCIACTION });
   }
   static config(sequelize) {
     return {
