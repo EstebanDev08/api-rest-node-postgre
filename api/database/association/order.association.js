@@ -1,0 +1,3 @@
+const ORDER_CUSTOMER_ASSOCIACTION = "customer";
+
+export { ORDER_CUSTOMER_ASSOCIACTION };

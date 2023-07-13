@@ -8,6 +8,26 @@ class UsersService extends CrudService {
     this.type = USERS;
     this.association = [USER_CUSTOMER_ASSOCIATION];
   }
+
+  async findOne(id) {
+    try {
+      const data = await this.models[this.type].findByPk(parseInt(id), {
+        include: [
+          {
+            association: this.association[0],
+            include: ["orders"],
+          },
+        ],
+      });
+
+      if (!data) {
+        throw new Error(`${this.type} not found`);
+      }
+      return { data: data };
+    } catch (error) {
+      return { error: error };
+    }
+  }
 }
 
 export { UsersService };

@@ -1,14 +1,14 @@
-import { UsersService } from "../services/users.service.js";
+import { OrdersService } from "../services/orders.service.js";
 
-const service = new UsersService();
+const service = new OrdersService();
 
-class UserController {
-  static getAllUsers = async (req, res) => {
-    const Users = await service.find();
-    res.status(200).json(Users);
+class OrderController {
+  static getAllOrders = async (req, res) => {
+    const orders = await service.find();
+    res.status(200).json(orders);
   };
 
-  static getUser = async (req, res) => {
+  static getOrder = async (req, res) => {
     const { id } = req.params;
 
     const { data, error } = await service.findOne(id);
@@ -22,7 +22,7 @@ class UserController {
     }
   };
 
-  static createUser = async (req, res) => {
+  static createOrder = async (req, res) => {
     const body = req.body;
 
     const { data, error } = await service.create(body);
@@ -30,18 +30,18 @@ class UserController {
 
     if (!!data) {
       res.status(201).json({
-        message: "creaded new User",
+        message: "creaded new Order",
         data: data,
       });
     } else {
       res.status(404).json({
-        message: "dont create Category",
+        message: "dont create Order",
         error: error,
       });
     }
   };
 
-  static deleteUser = async (req, res) => {
+  static deleteOrder = async (req, res) => {
     const { id } = req.params;
 
     const { isDelete, error } = await service.delete(id);
@@ -54,7 +54,7 @@ class UserController {
     }
   };
 
-  static editUser = async (req, res) => {
+  static editOrder = async (req, res) => {
     const body = req.body;
     const { id } = req.params;
 
@@ -62,7 +62,7 @@ class UserController {
 
     if (data) {
       res.json({
-        message: "update user",
+        message: "update Order",
         data: data,
       });
     } else {
@@ -73,4 +73,4 @@ class UserController {
   };
 }
 
-export { UserController };
+export { OrderController };
