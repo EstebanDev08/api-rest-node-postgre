@@ -6,6 +6,11 @@ import {
   updateCustomerSchema,
 } from "../schemas/customer.schema.js";
 import { CustomerController } from "../controller/customer.controller.js";
+import { FavoriteController } from "../controller/favorite.controller.js";
+import {
+  createFavoriteSchema,
+  getFavoriteSchema,
+} from "../schemas/favorite.schema.js";
 
 const customerRouter = express.Router();
 

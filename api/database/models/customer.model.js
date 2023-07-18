@@ -2,6 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import { CUSTOMERS } from "../routes.types.js";
 import { USER_TABLE } from "./user.model.js";
 import {
+  CUSTOMER_FAVORITES_ASSOCIATION,
   CUSTOMER_ORDER_ASSOCIACTION,
   CUSTOMER_USER_ASSOCIACTION,
 } from "../association/custumer.association.js";
@@ -22,15 +23,6 @@ const CustomerSchema = {
     allowNull: true,
     type: DataTypes.STRING,
   },
-  createdAt: {
-    allowNull: true,
-    type: DataTypes.DATE,
-  },
-
-  updatedAt: {
-    allowNull: true,
-    type: DataTypes.DATE,
-  },
 
   userId: {
     field: "user_id",
@@ -44,14 +36,30 @@ const CustomerSchema = {
     onUpdate: "CASCADE",
     inDelete: "SET NULL",
   },
+
+  createdAt: {
+    allowNull: true,
+    type: DataTypes.DATE,
+  },
+
+  updatedAt: {
+    allowNull: true,
+    type: DataTypes.DATE,
+  },
 };
 
 class Customer extends Model {
   static associate(models) {
     this.belongsTo(models.users, { as: CUSTOMER_USER_ASSOCIACTION });
+
     this.hasMany(models.orders, {
       as: CUSTOMER_ORDER_ASSOCIACTION,
       foreignKey: "customerId",
+    });
+
+    this.hasOne(models.favorites, {
+      foreignKey: "customerId",
+      as: CUSTOMER_FAVORITES_ASSOCIATION,
     });
   }
   static config(sequelize) {

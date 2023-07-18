@@ -19,7 +19,7 @@ class OrdersService extends CrudService {
         include: [
           {
             association: "products",
-            attributes: { exclude: ["updatedAt", "createdAt"] },
+            attributes: { exclude: ["favorite_product"] },
           },
         ],
       });
