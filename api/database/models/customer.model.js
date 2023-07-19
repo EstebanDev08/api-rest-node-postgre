@@ -2,6 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import { CUSTOMERS } from "../routes.types.js";
 import { USER_TABLE } from "./user.model.js";
 import {
+  CUSTOMER_CART_ASSOCIATION,
   CUSTOMER_FAVORITES_ASSOCIATION,
   CUSTOMER_ORDER_ASSOCIACTION,
   CUSTOMER_USER_ASSOCIACTION,
@@ -60,6 +61,11 @@ class Customer extends Model {
     this.hasOne(models.favorites, {
       foreignKey: "customerId",
       as: CUSTOMER_FAVORITES_ASSOCIATION,
+    });
+
+    this.hasOne(models.cart, {
+      foreignKey: "customerId",
+      as: CUSTOMER_CART_ASSOCIATION,
     });
   }
   static config(sequelize) {

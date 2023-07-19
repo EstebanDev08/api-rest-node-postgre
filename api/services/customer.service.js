@@ -1,6 +1,7 @@
 import { CrudService } from "./crud.service.js";
 import { CUSTOMERS } from "../database/routes.types.js";
 import {
+  CUSTOMER_CART_ASSOCIATION,
   CUSTOMER_FAVORITES_ASSOCIATION,
   CUSTOMER_ORDER_ASSOCIACTION,
   CUSTOMER_USER_ASSOCIACTION,
@@ -16,6 +17,7 @@ class CustomerService extends CrudService {
       CUSTOMER_USER_ASSOCIACTION,
       CUSTOMER_ORDER_ASSOCIACTION,
       CUSTOMER_FAVORITES_ASSOCIATION,
+      CUSTOMER_CART_ASSOCIATION,
     ];
   }
 
@@ -32,6 +34,10 @@ class CustomerService extends CrudService {
           },
           {
             association: this.association[2],
+            include: ["products"],
+          },
+          {
+            association: this.association[3],
             include: ["products"],
           },
         ],
@@ -53,8 +59,7 @@ class CustomerService extends CrudService {
       });
 
       await this.models.favorites.create({ customerId: data.id });
-
-      console.log(data);
+      await this.models.cart.create({ customerId: data.id });
 
       return { data: data };
     } catch (error) {

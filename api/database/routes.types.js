@@ -8,6 +8,8 @@ const ORDERS = "orders";
 const ORDER_PRODUCT = "order_product";
 const FAVORITES = "favorites";
 const FAVORITE_PRODUCT = "favorite_product";
+const CART = "cart";
+const CART_PRODUCT = "cart_product";
 
 export {
   PRODUCTS,
@@ -18,4 +20,6 @@ export {
   ORDER_PRODUCT,
   FAVORITES,
   FAVORITE_PRODUCT,
+  CART,
+  CART_PRODUCT,
 };

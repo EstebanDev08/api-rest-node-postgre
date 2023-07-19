@@ -1,3 +1,5 @@
+import { Cart, cartSchema } from "./cart.models.js";
+import { CartProduct, cartProductSchema } from "./cart_product.model.js";
 import { Category, CategorySchema } from "./category.model.js";
 import { Customer, CustomerSchema } from "./customer.model.js";
 import { Favorite, favoriteSchema } from "./favorite.model.js";
@@ -22,6 +24,8 @@ const setupModels = (sequelize) => {
     favoriteProductSchema,
     FavoriteProduct.config(sequelize)
   );
+  Cart.init(cartSchema, Cart.config(sequelize));
+  CartProduct.init(cartProductSchema, CartProduct.config(sequelize));
 
   Customer.associate(sequelize.models);
   User.associate(sequelize.models);
@@ -29,7 +33,7 @@ const setupModels = (sequelize) => {
   Product.associate(sequelize.models);
   Order.associate(sequelize.models);
   Favorite.associate(sequelize.models);
-  FavoriteProduct.associate(sequelize.models);
+  Cart.associate(sequelize.models);
 };
 
 export { setupModels };

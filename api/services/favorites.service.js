@@ -9,25 +9,6 @@ class FavoritesService extends CrudService {
     this.association = ["products"];
   }
 
-  async findOne(id) {
-    try {
-      const data = await this.models[this.type].findByPk(parseInt(id), {
-        include: [
-          {
-            association: this.association[0],
-          },
-        ],
-      });
-
-      if (!data) {
-        throw new Error(`${this.type} not found`);
-      }
-      return { data: data };
-    } catch (error) {
-      return { error: error };
-    }
-  }
-
   async addFavorite(item) {
     try {
       const data = await this.models.favorite_product.create(item);
