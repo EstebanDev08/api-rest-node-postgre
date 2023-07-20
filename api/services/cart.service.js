@@ -92,6 +92,46 @@ class CartService extends CrudService {
       return { error: error };
     }
   }
+
+  async decrementProduct(item) {
+    try {
+      const { customerId, productId, amount } = item;
+
+      const data = await this.models.cart_product.findOne({
+        where: { customerId: customerId, productId: productId },
+      });
+
+      console.log(data.amount, amount);
+      if (!data) {
+        throw new Error(
+          `Cart product with customerId: ${customerId} and productId: ${productId} not found`
+        );
+      }
+
+      if (data.amount <= amount || 1) {
+        await data.destroy();
+        return {
+          data: "Product quantity reduced successfully. As the quantity reached zero, the product has been removed.",
+        };
+      } else {
+        await data.decrement("amount", { by: amount || 1 });
+      }
+
+      return { data: data };
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        return {
+          error: {
+            statusCode: 409,
+            message: error.name,
+            errors: error?.errors[0]?.message || error?.errors,
+          },
+        };
+      }
+
+      return { error: error };
+    }
+  }
 }
 
 export { CartService };

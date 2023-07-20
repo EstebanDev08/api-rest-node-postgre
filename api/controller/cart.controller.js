@@ -1,5 +1,4 @@
 import { CartService } from "../services/cart.service.js";
-import { FavoritesService } from "../services/favorites.service.js";
 
 const service = new CartService();
 
@@ -62,16 +61,40 @@ class CartController {
   static incrementProduct = async (req, res) => {
     const body = req.body;
 
+    console.log(typeof "hola" === "string");
+
     const { data, error } = await service.incrementProduct(body);
     //status nos permite devolver un code de status
     if (!!data) {
-      res.status(201).json({
-        message: `increment one product`,
+      res.status(200).json({
+        message: `increment product`,
         data: data,
       });
     } else {
-      res.status(404).json({
-        message: "dont create Favorite",
+      res.status(400).json({
+        message: "dont increment product",
+        error: error,
+      });
+    }
+  };
+
+  static decrementProduct = async (req, res) => {
+    const body = req.body;
+
+    const { data, error } = await service.decrementProduct(body);
+
+    if (!!data) {
+      res.status(200).json({
+        message: `decrement product`,
+        data: data,
+      });
+    } else if (typeof data === "string") {
+      res.status(200).json({
+        message: data,
+      });
+    } else {
+      res.status(400).json({
+        message: "dont decrement product",
         error: error,
       });
     }

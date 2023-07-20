@@ -29,6 +29,12 @@ cartRouter.patch(
   CartController.incrementProduct
 );
 
+cartRouter.patch(
+  "/decrement-product",
+  validatorHandler(incrementProductCartSchema, "body"),
+  CartController.decrementProduct
+);
+
 cartRouter.delete(
   "/delete-product",
   validatorHandler(addProductToCartSchema, "body"),
