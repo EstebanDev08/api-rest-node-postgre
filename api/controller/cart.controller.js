@@ -4,7 +4,7 @@ import { FavoritesService } from "../services/favorites.service.js";
 const service = new CartService();
 
 class CartController {
-  static getFavorite = async (req, res) => {
+  static getCart = async (req, res) => {
     const { id } = req.params;
 
     const { data, error } = await service.findOne(id);
@@ -18,12 +18,11 @@ class CartController {
     }
   };
 
-  static createFavorite = async (req, res) => {
+  static addProduct = async (req, res) => {
     const body = req.body;
 
-    const { data, error } = await service.addFavorite(body);
+    const { data, error } = await service.addProduct(body);
     //status nos permite devolver un code de status
-
     if (!!data) {
       res.status(201).json({
         message: "creaded new Favorite",
@@ -36,15 +35,44 @@ class CartController {
     }
   };
 
-  static removeFavorite = async (req, res) => {
+  static deleteProductToCart = async (req, res) => {
     const body = req.body;
-    console.log(body);
-    const { isDelete, error } = await service.removeFavorite(body);
+    const { isDelete, error } = await service.deleteProductToCart(body);
     if (isDelete === true) {
       res.status(204).json({});
     } else {
       res.status(400).json({
         message: `${error}`,
+      });
+    }
+  };
+
+  static deleteAllProductsToCart = async (req, res) => {
+    const { id } = req.params;
+    const { isDelete, error } = await service.deleteAllProductsToCart(id);
+    if (isDelete === true) {
+      res.status(204).json({});
+    } else {
+      res.status(400).json({
+        message: `${error}`,
+      });
+    }
+  };
+
+  static incrementProduct = async (req, res) => {
+    const body = req.body;
+
+    const { data, error } = await service.incrementProduct(body);
+    //status nos permite devolver un code de status
+    if (!!data) {
+      res.status(201).json({
+        message: `increment one product`,
+        data: data,
+      });
+    } else {
+      res.status(404).json({
+        message: "dont create Favorite",
+        error: error,
       });
     }
   };
