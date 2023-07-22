@@ -6,7 +6,7 @@ import { setupModels } from "../database/models/index.js";
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
 
-const port = config.port ? `:${config.dbPort}` : "";
+const port = config.port != undefined ? `:${config.dbPort}` : "";
 
 const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}${port}/${config.dbName}`;
 
