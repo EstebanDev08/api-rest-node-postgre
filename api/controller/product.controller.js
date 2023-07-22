@@ -4,7 +4,9 @@ const service = new ProductsService();
 
 class ProductController {
   static getAllProducts = async (req, res) => {
-    const products = await service.find();
+    const query = req.query;
+
+    const products = await service.find(query);
     res.status(200).json(products);
   };
 

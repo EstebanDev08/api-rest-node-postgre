@@ -19,6 +19,11 @@ const createProductSchema = Joi.object({
   categoryId: categoryId.required(),
 });
 
+const getPaginationSchema = Joi.object({
+  limit: Joi.number().integer().min(0),
+  offset: Joi.number().integer().min(0),
+});
+
 const updateProductSchema = Joi.object({
   title: title,
   price: price,
@@ -33,4 +38,9 @@ const getProductSchema = Joi.object({
   id: id.required(),
 });
 
-export { createProductSchema, updateProductSchema, getProductSchema };
+export {
+  createProductSchema,
+  updateProductSchema,
+  getProductSchema,
+  getPaginationSchema,
+};

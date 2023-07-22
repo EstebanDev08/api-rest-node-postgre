@@ -2,6 +2,7 @@ import express from "express";
 import { validatorHandler } from "../middleware/validator.middleware.js";
 import {
   createProductSchema,
+  getPaginationSchema,
   getProductSchema,
   updateProductSchema,
 } from "../schemas/product.schema.js";
@@ -11,7 +12,11 @@ const productsRouter = express.Router();
 
 //traemos la clase de nuestro producto
 
-productsRouter.get("/", ProductController.getAllProducts);
+productsRouter.get(
+  "/",
+  validatorHandler(getPaginationSchema, "query"),
+  ProductController.getAllProducts
+);
 
 //para recibir parametros por link se utiliza los dos puntos /:id
 productsRouter.get(

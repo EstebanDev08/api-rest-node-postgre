@@ -7,11 +7,18 @@ class CrudService {
     this.models = sequelizeConection.models;
   }
 
-  async find() {
+  async find(query) {
     try {
-      const data = await this.models[this.type].findAll({
+      const options = {
         include: this.association,
-      });
+      };
+
+      const { limit, offset } = query;
+      if (limit && offset) {
+        (options.limit = limit), (options.offset = offset);
+      }
+
+      const data = await this.models[this.type].findAll(options);
       if (data.length === 0) {
         return { message: "no data" };
       }
