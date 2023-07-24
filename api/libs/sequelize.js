@@ -11,7 +11,7 @@ const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${
 const { pg } = pge;
 const sequelizeConection = new Sequelize(URI, {
   dialect: "postgres",
-  logging: true,
+  logging: false,
   dialectOptions: {
     ssl: {
       rejectUnauthorized: false,
