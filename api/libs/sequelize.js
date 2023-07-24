@@ -11,10 +11,16 @@ const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${
 const sequelizeConection = new Sequelize(URI, {
   dialect: "postgres",
   logging: true,
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 });
 
 try {
   await sequelizeConection.authenticate();
+  console.log("Connection to the database has been established successfully.");
 } catch (error) {
   console.error("Unable to connect to the database:", error);
 }
