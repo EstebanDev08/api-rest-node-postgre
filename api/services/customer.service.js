@@ -27,7 +27,7 @@ class CustomerService extends CrudService {
         include: [
           {
             association: this.association[0],
-            attributes: { exclude: ["updatedAt", "createdAt"] },
+            attributes: { exclude: ["updatedAt", "createdAt", "password"] },
           },
           {
             association: this.association[1],

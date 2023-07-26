@@ -15,9 +15,10 @@ class UsersService extends CrudService {
         include: [
           {
             association: this.association[0],
-            include: ["orders"],
+            include: [{ association: "orders" }],
           },
         ],
+        attributes: { exclude: ["password"] },
       });
 
       if (!data) {
