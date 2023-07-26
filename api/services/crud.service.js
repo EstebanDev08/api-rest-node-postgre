@@ -51,6 +51,10 @@ class CrudService {
         include: this.association,
       });
 
+      delete data?.dataValues.user?.dataValues.password;
+
+      delete data?.dataValues?.password;
+
       return { data: data };
     } catch (error) {
       if (error instanceof ValidationError) {

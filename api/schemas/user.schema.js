@@ -15,7 +15,7 @@ const createUserSchema = Joi.object({
     name: name.required(),
     lastName: lastName.required(),
     phone: phone,
-  }).required(),
+  }),
 });
 
 const updateUserSchema = Joi.object({
