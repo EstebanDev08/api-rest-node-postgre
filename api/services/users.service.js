@@ -28,6 +28,28 @@ class UsersService extends CrudService {
       return { error: error };
     }
   }
+
+  async create(item) {
+    try {
+      const data = await this.models[this.type].create(item, {
+        include: this.association,
+      });
+      return { data: data };
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        console.log(error);
+        return {
+          error: {
+            statusCode: 409,
+            message: error.name,
+            errors: error?.errors[0]?.message || error?.errors,
+          },
+        };
+      }
+
+      return { error: error };
+    }
+  }
 }
 
 export { UsersService };

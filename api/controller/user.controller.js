@@ -4,7 +4,8 @@ const service = new UsersService();
 
 class UserController {
   static getAllUsers = async (req, res) => {
-    const Users = await service.find();
+    const query = req.query;
+    const Users = await service.find(query);
     res.status(200).json(Users);
   };
 

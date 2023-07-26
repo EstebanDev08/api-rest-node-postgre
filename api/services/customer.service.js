@@ -61,6 +61,11 @@ class CustomerService extends CrudService {
       await this.models.favorites.create({ customerId: data.id });
       await this.models.cart.create({ customerId: data.id });
 
+      //borramos campos inecesarios
+      delete data.dataValues.user.dataValues.password;
+      delete data.dataValues.user.dataValues.updatedAt;
+      delete data.dataValues.user.dataValues.createdAt;
+
       return { data: data };
     } catch (error) {
       if (error instanceof ValidationError) {

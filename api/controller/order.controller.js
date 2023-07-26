@@ -4,7 +4,9 @@ const service = new OrdersService();
 
 class OrderController {
   static getAllOrders = async (req, res) => {
-    const orders = await service.find();
+    const query = req.query;
+
+    const orders = await service.find(query);
     res.status(200).json(orders);
   };
 
