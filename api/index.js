@@ -7,6 +7,7 @@ import {
   logErrors,
   ormErrorHandler,
 } from "./middleware/handleErrorValidator.js";
+import { checkApiKey } from "./middleware/auth.middleware.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,7 +16,7 @@ app.use(cors());
 //permite resivir json en las peticiones
 app.use(express.json());
 
-app.get("/api", (req, res) => {
+app.get("/api", checkApiKey, (req, res) => {
   res.send("desplegado");
 });
 
