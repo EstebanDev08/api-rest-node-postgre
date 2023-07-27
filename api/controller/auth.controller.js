@@ -1,12 +1,22 @@
+import { singToken } from "../utils/jwt_manager.js";
+
 class AuthtController {
-  static autenticate = async (req, res) => {
-    const data = req.user;
-    if (data) {
-      res.json(data);
-    } else {
-      res.status(404).json({
-        message: `error`,
+  static autenticate = async (req, res, next) => {
+    try {
+      const user = req.user;
+
+      const payload = {
+        sub: user.id,
+      };
+
+      const token = singToken(payload);
+
+      res.status(200).json({
+        user,
+        token,
       });
+    } catch (error) {
+      next(error);
     }
   };
 }
