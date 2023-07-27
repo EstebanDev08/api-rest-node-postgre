@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { USERS } from "../routes.types.js";
 import { USER_CUSTOMER_ASSOCIATION } from "../association/user.association.js";
-import { encryptData } from "../../../utils/encryp_data.js";
+import { encryptData } from "../../utils/encryp_data.js";
 
 const USER_TABLE = "users";
 

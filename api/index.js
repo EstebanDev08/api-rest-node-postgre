@@ -8,11 +8,15 @@ import {
   ormErrorHandler,
 } from "./middleware/handleErrorValidator.js";
 import { checkApiKey } from "./middleware/auth.middleware.js";
-
+import passport from "./utils/auth/index.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
+
+// inicializamos passport
+app.use(passport.initialize());
+
 //permite resivir json en las peticiones
 app.use(express.json());
 
