@@ -6,6 +6,7 @@ import {
   updateCategorySchema,
 } from "../schemas/category.schema.js";
 import { CategoryController } from "../controller/category.controller.js";
+import passport from "passport";
 
 const categoryRouter = express.Router();
 
@@ -22,6 +23,7 @@ categoryRouter.get(
 
 categoryRouter.post(
   "/",
+  passport.authenticate("jwt", { session: false }),
   validatorHandler(createCategorySchema, "body"),
   CategoryController.createCategory
 );
