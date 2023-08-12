@@ -7,6 +7,7 @@ class AuthtController {
 
       const payload = {
         sub: user.id,
+        role: user.role,
       };
 
       const token = singToken(payload);

@@ -12,4 +12,15 @@ const checkApiKey = (req, res, next) => {
   }
 };
 
-export { checkApiKey };
+const checkAdminRole = (...roles) => {
+  return (req, res, next) => {
+    const user = req.user;
+    if (roles.includes(user.role)) {
+      next();
+    } else {
+      next(boom.forbidden());
+    }
+  };
+};
+
+export { checkApiKey, checkAdminRole };
