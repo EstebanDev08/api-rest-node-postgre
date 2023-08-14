@@ -1,4 +1,7 @@
+import { authService } from "../services/auth.service.js";
 import { singToken } from "../utils/jwt_manager.js";
+
+const service = new authService();
 
 class AuthtController {
   static autenticate = async (req, res, next) => {
@@ -15,6 +18,20 @@ class AuthtController {
       res.status(200).json({
         user,
         token,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  static recoveryPassword = async (req, res, next) => {
+    try {
+      const { email } = req.body;
+
+      const { message } = await service.sendEmail(email);
+
+      res.status(200).json({
+        message,
       });
     } catch (error) {
       next(error);
