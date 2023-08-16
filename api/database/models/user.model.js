@@ -28,6 +28,12 @@ const UserSchema = {
     defaultValue: "customer",
   },
 
+  recoveryToken: {
+    field: "recovery_token",
+    allowNull: true,
+    type: DataTypes.STRING,
+  },
+
   createdAt: {
     allowNull: true,
     type: DataTypes.DATE,

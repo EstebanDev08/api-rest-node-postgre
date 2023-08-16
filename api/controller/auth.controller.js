@@ -37,6 +37,20 @@ class AuthtController {
       next(error);
     }
   };
+
+  static changePassword = async (req, res, next) => {
+    try {
+      const { token, newPassword } = req.body;
+
+      const { message } = await service.changePassword(token, newPassword);
+
+      res.status(200).json({
+        message,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export { AuthtController };
