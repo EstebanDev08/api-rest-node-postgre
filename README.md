@@ -1,6 +1,6 @@
 # Backend de Tienda Online
 
-Este es el repositorio del backend para una tienda online. El backend está construido con Node.js, Express, PostgreSQL, Sequelize, Joi y Docker. Proporciona todas las rutas CRUD para gestionar productos, categorías de productos, usuarios, clientes, órdenes de compra, carrito de compras y favoritos.
+Desarrollé un proyecto integral en Node.js que constituye un backend robusto para una tienda en línea completa. Este proyecto abarcó desde la gestión de productos y categorías hasta la autenticación segura de usuarios y la autorización de rutas mediante JSON Web Tokens (JWT) y Passport. Implementé una estructura de base de datos eficiente a través de Sequelize y migraciones, y garantice la integridad de los datos mediante validación rigurosa con Joi. Además, incorporé un sistema de cifrado de datos para salvaguardar información sensible y diseñé rutas para el inicio de sesión y la recuperación de contraseñas, incluido el envío de correos electrónicos. En conjunto, este proyecto me permitió explorar a fondo el desarrollo backend y la implementación de tecnologías esenciales para un rendimiento sólido y seguro.
 
 ## Requisitos previos
 
@@ -162,12 +162,6 @@ Cada ruta admite operaciones CRUD (Crear, Leer, Actualizar y Eliminar) para las 
 ### Recomendación
 
 La creación de usuarios con email y password no cuenta con ningún tipo de protección o encriptación. No se recomienda usar datos reales en la creación. Este proyecto fue creado con fines didácticos y no debe ser utilizado con datos sensibles o en un entorno de producción.
-
-¡Mis disculpas por la confusión! Aquí tienes un ejemplo de cómo podría ser el README para tu proyecto de backend de una tienda online utilizando las tecnologías mencionadas:
-
-# Backend de Tienda Online
-
-Este es el repositorio del backend para una tienda online. El backend está construido con Node.js, Express, PostgreSQL, Sequelize, Joi y Docker. Proporciona todas las rutas CRUD para gestionar productos, categorías de productos, usuarios, clientes, órdenes de compra, carrito de compras y favoritos.
 
 ## Contribución
 
