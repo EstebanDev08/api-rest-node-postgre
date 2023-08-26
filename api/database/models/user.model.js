@@ -1,6 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { USERS } from "../routes.types.js";
 import { USER_CUSTOMER_ASSOCIATION } from "../association/user.association.js";
+import { encryptData } from "../../utils/encryp_data.js";
 
 const USER_TABLE = "users";
 
@@ -18,6 +19,18 @@ const UserSchema = {
   },
   password: {
     allowNull: false,
+    type: DataTypes.STRING,
+  },
+
+  role: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: "customer",
+  },
+
+  recoveryToken: {
+    field: "recovery_token",
+    allowNull: true,
     type: DataTypes.STRING,
   },
 
@@ -45,6 +58,15 @@ class User extends Model {
       tableName: USER_TABLE,
       modelName: USERS,
       timestamp: false,
+      hooks: {
+        //antesd de guardar la informacion
+        beforeCreate: async (user, options) => {
+          //encriptamos los datos de user.pasword
+          const encriptedPassword = await encryptData(user.password);
+          //y decimos que ese password sea el password encriptado
+          user.password = encriptedPassword;
+        },
+      },
     };
   }
 }

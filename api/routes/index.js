@@ -1,3 +1,4 @@
+import { authRouter } from "./auth.js";
 import { cartRouter } from "./cart.js";
 import { categoryRouter } from "./category.js";
 import { customerRouter } from "./customer.js";
@@ -20,6 +21,7 @@ const routerApi = (app) => {
   router.use(`/orders`, ordersRouter);
   router.use(`/favorites`, favoriteRouter);
   router.use(`/cart`, cartRouter);
+  router.use(`/auth`, authRouter);
 };
 
 export { routerApi };

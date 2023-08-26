@@ -11,6 +11,7 @@ class CrudService {
     try {
       const options = {
         include: this.association,
+        attributes: { exclude: ["password"] },
       };
 
       const { limit, offset } = query;
@@ -32,6 +33,7 @@ class CrudService {
     try {
       const data = await this.models[this.type].findByPk(parseInt(id), {
         include: this.association,
+        attributes: { exclude: ["password"] },
       });
 
       if (!data) {
@@ -48,6 +50,10 @@ class CrudService {
       const data = await this.models[this.type].create(item, {
         include: this.association,
       });
+
+      delete data?.dataValues.user?.dataValues.password;
+
+      delete data?.dataValues?.password;
 
       return { data: data };
     } catch (error) {

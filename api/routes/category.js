@@ -6,6 +6,8 @@ import {
   updateCategorySchema,
 } from "../schemas/category.schema.js";
 import { CategoryController } from "../controller/category.controller.js";
+import passport from "passport";
+import { checkAdminRole } from "../middleware/auth.middleware.js";
 
 const categoryRouter = express.Router();
 
@@ -22,6 +24,8 @@ categoryRouter.get(
 
 categoryRouter.post(
   "/",
+  passport.authenticate("jwt", { session: false }),
+  checkAdminRole("admin"),
   validatorHandler(createCategorySchema, "body"),
   CategoryController.createCategory
 );

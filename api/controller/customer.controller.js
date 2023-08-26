@@ -4,7 +4,9 @@ const service = new CustomerService();
 
 class CustomerController {
   static getAllCustomers = async (req, res) => {
-    const Customers = await service.find();
+    const query = req.query;
+
+    const Customers = await service.find(query);
     res.status(200).json(Customers);
   };
 

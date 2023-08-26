@@ -1,3 +1,4 @@
+import { ValidationError } from "sequelize";
 import { USER_CUSTOMER_ASSOCIATION } from "../database/association/user.association.js";
 import { USERS } from "../database/routes.types.js";
 import { CrudService } from "./crud.service.js";
@@ -15,9 +16,10 @@ class UsersService extends CrudService {
         include: [
           {
             association: this.association[0],
-            include: ["orders"],
+            include: [{ association: "orders" }],
           },
         ],
+        attributes: { exclude: ["password"] },
       });
 
       if (!data) {

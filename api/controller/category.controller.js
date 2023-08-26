@@ -4,7 +4,9 @@ const service = new CategoryService();
 
 class CategoryController {
   static getAllCategorys = async (req, res) => {
-    const categorys = await service.find();
+    const query = req.query;
+
+    const categorys = await service.find(query);
     res.status(200).json(categorys);
   };
 

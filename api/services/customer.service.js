@@ -27,7 +27,7 @@ class CustomerService extends CrudService {
         include: [
           {
             association: this.association[0],
-            attributes: { exclude: ["updatedAt", "createdAt"] },
+            attributes: { exclude: ["updatedAt", "createdAt", "password"] },
           },
           {
             association: this.association[1],
@@ -60,6 +60,11 @@ class CustomerService extends CrudService {
 
       await this.models.favorites.create({ customerId: data.id });
       await this.models.cart.create({ customerId: data.id });
+
+      //borramos campos inecesarios
+      delete data.dataValues.user.dataValues.password;
+      delete data.dataValues.user.dataValues.updatedAt;
+      delete data.dataValues.user.dataValues.createdAt;
 
       return { data: data };
     } catch (error) {
